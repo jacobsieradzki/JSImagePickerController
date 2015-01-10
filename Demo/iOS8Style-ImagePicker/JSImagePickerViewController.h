@@ -30,7 +30,7 @@
 
 @property (nonatomic, assign) id<JSImagePickerViewControllerDelegate> delegate;
 
-@property bool isVisible;
+@property (readonly) bool isVisible;
 @property (nonatomic) NSTimeInterval animationTime;
 
 @property (nonatomic, strong) UICollectionView *collectionView;

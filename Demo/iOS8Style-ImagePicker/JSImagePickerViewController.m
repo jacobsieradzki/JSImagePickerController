@@ -21,6 +21,8 @@ colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
+@property (readwrite) bool isVisible;
+
 @property (nonatomic, strong) UIViewController *targetController;
 @property (nonatomic, strong) UIWindow *window;
 
@@ -142,10 +144,6 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [self.imagePickerView addSubview:self.photoLibraryBtn];
     [self.imagePickerView addSubview:self.cameraBtn];
     [self.imagePickerView addSubview:self.cancelBtn];
-}
-
-- (void)setDefaults {
-#warning defaults!!
 }
 
 #pragma mark - Collection view

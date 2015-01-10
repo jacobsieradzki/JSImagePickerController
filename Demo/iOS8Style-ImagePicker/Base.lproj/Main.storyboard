@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C81f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="ufC-wZ-h7g">
+            <objects>
+                <viewController id="vXZ-lx-hvc" customClass="JSViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
+                        <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HHP-2t-R6J">
+                                <rect key="frame" x="169" y="92" width="263" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="263" id="glo-qe-4uV"/>
+                                    <constraint firstAttribute="height" constant="30" id="xql-iX-JM5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
+                                <state key="normal" title="SHOW IMAGE PICKER">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="showBtnWasPressed:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="e8L-Q5-VYO"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QvG-eI-05X">
+                                <rect key="frame" x="169" y="168" width="263" height="263"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="QvG-eI-05X" secondAttribute="height" multiplier="1:1" id="272-1S-U9x"/>
+                                    <constraint firstAttribute="width" secondItem="QvG-eI-05X" secondAttribute="height" multiplier="1:1" id="6kp-PM-qVL"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="6kp-PM-qVL"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="6kp-PM-qVL"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="QvG-eI-05X" secondAttribute="centerX" id="0tg-e1-9K8"/>
+                            <constraint firstItem="HHP-2t-R6J" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="72" id="1tf-6k-agm"/>
+                            <constraint firstAttribute="centerX" secondItem="HHP-2t-R6J" secondAttribute="centerX" id="MHQ-Wt-QPF"/>
+                            <constraint firstItem="QvG-eI-05X" firstAttribute="top" secondItem="HHP-2t-R6J" secondAttribute="bottom" constant="46" id="Q2e-3o-J3f"/>
+                            <constraint firstAttribute="centerX" secondItem="HHP-2t-R6J" secondAttribute="centerX" id="u5y-f8-qvv"/>
+                            <constraint firstItem="QvG-eI-05X" firstAttribute="width" secondItem="HHP-2t-R6J" secondAttribute="width" id="zfC-qF-cZY"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="QvG-eI-05X" id="lr7-tf-pHg"/>
+                        <outlet property="showButton" destination="HHP-2t-R6J" id="mei-Yj-e4e"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="412" y="442"/>
+        </scene>
+    </scenes>
+</document>

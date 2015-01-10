@@ -1,9 +1,9 @@
 # JSImagePickerController
 A photo picker controller that resembles the style of the image picker in iOS 8's messages app.
 
-![BackgroundImage](https://github.com/jacobsieradzki/JSImagePickerController/blob/master/Screenshots/imagePicker1.png = 568x320)
+![Screenshot](https://github.com/jacobsieradzki/JSImagePickerController/blob/master/Screenshots/imagePicker1.png)
 
-# Installation
+## Installation
 
 Just drop the two files for the JSImagePickerViewController class into your project and import them into whichever view controllers you want:
 

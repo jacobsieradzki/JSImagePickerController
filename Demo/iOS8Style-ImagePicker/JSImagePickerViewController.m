@@ -172,7 +172,16 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     
     ALAsset *asset = self.assets[self.assets.count-1 - indexPath.row];
-    UIImage *image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
+    ALAssetRepresentation* representation = [asset defaultRepresentation];
+    UIImageOrientation orientation = UIImageOrientationUp;
+    NSNumber* orientationValue = [asset valueForProperty:@"ALAssetPropertyOrientation"];
+    if (orientationValue != nil) {
+        orientation = [orientationValue intValue];
+    }
+    
+    CGFloat scale  = 1;
+    UIImage* image = [UIImage imageWithCGImage:[representation fullResolutionImage]
+                                         scale:scale orientation:orientation];
     
     if ([delegate respondsToSelector:@selector(imagePickerDidSelectImage:)]) {
         [delegate imagePickerDidSelectImage:image];
@@ -291,7 +300,11 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
         self.isVisible = YES;
         
         [self setTransitioningDelegate:transitionController];
-        self.modalPresentationStyle = UIModalPresentationCustom;
+        if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
+            self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        } else {
+            self.modalPresentationStyle = UIModalPresentationCustom;
+        }
         [controller presentViewController:self animated:NO completion:nil];
         
         if (animated) {

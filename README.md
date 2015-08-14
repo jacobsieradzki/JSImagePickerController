@@ -22,7 +22,7 @@ imagePicker.delegate = self;
 and add this delegate method to your code:
 
 ```Objective-C
-- (void)imagePickerDidSelectImage:(UIImage *)image;
+- (void)imagePicker:(JSImagePickerController)imagePicker didSelectImage:(UIImage *)image;
 ```
 
 and if you want there are a choice of different delegate methods to choose from:
@@ -37,10 +37,10 @@ and if you want there are a choice of different delegate methods to choose from:
 - (void)imagePickerDidCancel;
 ```
 
-and for personalization you can edit the public property's of the image picker:
+and for personalization you can edit the public propertys and methods of the image picker:
 
 ```Objective-C
-@property (nonatomic) NSTimeInterval animationTime;
+- (void)setAnimationTime:(NSTimeInterval)timeInterval;
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UIButton *photoLibraryBtn;

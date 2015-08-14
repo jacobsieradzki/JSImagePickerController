@@ -150,10 +150,6 @@
     [self.imagePickerView addSubview:self.cancelBtn];
 }
 
-- (void)setDefaults {
-#warning defaults!!
-}
-
 #pragma mark - Collection view
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -182,12 +178,30 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+<<<<<<< HEAD
 
     ALAsset *asset = self.assets[self.assets.count - 1 - indexPath.row];
     UIImage *image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
 
     if ([delegate respondsToSelector:@selector(imagePicker:didSelectImage:)]) {
         [delegate imagePicker:self didSelectImage:image];
+=======
+    
+    ALAsset *asset = self.assets[self.assets.count-1 - indexPath.row];
+    ALAssetRepresentation* representation = [asset defaultRepresentation];
+    UIImageOrientation orientation = UIImageOrientationUp;
+    NSNumber* orientationValue = [asset valueForProperty:@"ALAssetPropertyOrientation"];
+    if (orientationValue != nil) {
+        orientation = [orientationValue intValue];
+    }
+    
+    CGFloat scale  = 1;
+    UIImage* image = [UIImage imageWithCGImage:[representation fullResolutionImage]
+                                         scale:scale orientation:orientation];
+    
+    if ([delegate respondsToSelector:@selector(imagePickerDidSelectImage:)]) {
+        [delegate imagePickerDidSelectImage:image];
+>>>>>>> 53567d0f0ff945d610e0d646003c2030aa1b09b5
     }
 
     [self dismissAnimated:YES];
@@ -311,7 +325,11 @@
         self.isVisible = YES;
 
         [self setTransitioningDelegate:transitionController];
-        self.modalPresentationStyle = UIModalPresentationCustom;
+        if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
+            self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        } else {
+            self.modalPresentationStyle = UIModalPresentationCustom;
+        }
         [controller presentViewController:self animated:NO completion:nil];
 
         if (animated) {

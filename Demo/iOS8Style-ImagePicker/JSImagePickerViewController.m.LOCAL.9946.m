@@ -150,10 +150,6 @@
     [self.imagePickerView addSubview:self.cancelBtn];
 }
 
-- (void)setDefaults {
-#warning defaults!!
-}
-
 #pragma mark - Collection view
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView

@@ -153,6 +153,10 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
     [self.imagePickerView addSubview:self.cancelBtn];
 }
 
+- (void)setDefaults {
+#warning defaults!!
+}
+
 #pragma mark - Collection view
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {

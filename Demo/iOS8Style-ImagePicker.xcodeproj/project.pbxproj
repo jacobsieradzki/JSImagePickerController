@@ -69,10 +69,10 @@
 		3162123B1A604EFE00E9962D = {
 			isa = PBXGroup;
 			children = (
-				31D08A891A60A92200DBF1F9 /* AssetsLibrary.framework */,
 				316212461A604EFE00E9962D /* iOS8Style-ImagePicker */,
 				316212601A604EFE00E9962D /* iOS8Style-ImagePickerTests */,
 				316212451A604EFE00E9962D /* Products */,
+				31D08A891A60A92200DBF1F9 /* AssetsLibrary.framework */,
 			);
 			sourceTree = "<group>";
 		};

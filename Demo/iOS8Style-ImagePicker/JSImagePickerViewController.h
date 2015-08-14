@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@class JSImagePickerViewController;
+@class JSImagePickerViewController ;
 @protocol JSImagePickerViewControllerDelegate <NSObject>
 
+//- (void)imagePickerDidSelectImage:(UIImage *)image;
 - (void)imagePicker:(JSImagePickerViewController *)imagePicker didSelectImage:(UIImage *)image;
 
 @optional
-
 - (void)imagePickerDidOpen;
 - (void)imagePickerWillOpen;
 
@@ -26,18 +26,23 @@
 @end
 
 @interface JSImagePickerViewController : UIViewController {
-    __unsafe_unretained id<JSImagePickerViewControllerDelegate> delegate;
+  __unsafe_unretained id<JSImagePickerViewControllerDelegate> delegate;
 }
 
-@property(nonatomic, assign) id<JSImagePickerViewControllerDelegate> delegate;
+@property (nonatomic, assign) id<JSImagePickerViewControllerDelegate> delegate;
 
-@property bool isVisible;
+@property (readonly) bool isVisible;
+@property (nonatomic) NSTimeInterval animationTime;
 
-@property(assign, nonatomic) NSUInteger tag;
+@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) UIButton *photoLibraryBtn;
+@property (nonatomic, strong) UIButton *cameraBtn;
+@property (nonatomic, strong) UIButton *cancelBtn;
 
 - (void)showImagePickerInController:(UIViewController *)controller;
 
 - (void)showImagePickerInController:(UIViewController *)controller animated:(BOOL)animated;
+
 
 - (void)dismiss;
 
@@ -45,16 +50,31 @@
 
 @end
 
+
+
+
+
 @interface TransitionDelegate : NSObject <UIViewControllerTransitioningDelegate>
 
 @end
 
+
+
+
+
+
 @interface AnimatedTransitioning : NSObject <UIViewControllerAnimatedTransitioning>
 
-@property(nonatomic, assign) BOOL isPresenting;
+@property (nonatomic, assign) BOOL isPresenting;
 
 @end
+
+
+
 
 @interface JSPhotoCell : UICollectionViewCell
 
 @end
+
+
+

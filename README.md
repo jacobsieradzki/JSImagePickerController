@@ -1,7 +1,7 @@
 # JSImagePickerController
 A photo picker controller that resembles the style of the image picker in iOS 8's messages app.
 
-![Screenshot](https://github.com/jacobsieradzki/JSImagePickerController/blob/master/Screenshots/imagePicker1.png)
+![Demo](https://github.com/jacobsieradzki/JSImagePickerController/blob/master/Demo.gif)
 
 ## Installation
 

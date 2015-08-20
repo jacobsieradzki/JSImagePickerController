@@ -22,6 +22,7 @@ green:((float)((rgbValue & 0xFF00) >> 8))/255.0 \
 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @property (readwrite) bool isVisible;
+@property (readwrite) bool haveCamera;
 @property (nonatomic) NSTimeInterval animationTime;
 
 @property (nonatomic, strong) UIViewController *targetController;
@@ -57,9 +58,13 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
   self.view.backgroundColor = [UIColor clearColor];
   self.window = [UIApplication sharedApplication].keyWindow;
   
-  
-  self.imagePickerFrame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height-imagePickerHeight, [UIScreen mainScreen].bounds.size.width, imagePickerHeight);
-  self.hiddenFrame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, imagePickerHeight);
+  self.haveCamera = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
+  CGFloat localImagePickerHeight = imagePickerHeight;
+  if (!self.haveCamera) {
+      localImagePickerHeight -= 47.0f;
+  }
+  self.imagePickerFrame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height-localImagePickerHeight, [UIScreen mainScreen].bounds.size.width, localImagePickerHeight);
+  self.hiddenFrame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, localImagePickerHeight);
   self.imagePickerView = [[UIView alloc] initWithFrame:self.hiddenFrame];
   self.imagePickerView.backgroundColor = [UIColor whiteColor];
   
@@ -95,8 +100,8 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
   
   const CGRect collectionViewFrame = CGRectMake(7, 8, screenWidth-7-7, 122);
   const CGRect libraryBtnFrame = CGRectMake(0, 149, screenWidth, 30);
-  const CGRect cameraBtnFrame = CGRectMake(0, 196, screenWidth, 30);
-  const CGRect cancelBtnFrame = CGRectMake(0, 242, screenWidth, 30);
+  const CGRect cameraBtnFrame = CGRectMake(0, self.haveCamera ? 196 : 0, screenWidth, 30);
+  const CGRect cancelBtnFrame = CGRectMake(0, self.haveCamera ? 242 : 196, screenWidth, 30);
   
   UICollectionViewFlowLayout *aFlowLayout = [[UICollectionViewFlowLayout alloc] init];
   [aFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
@@ -119,6 +124,7 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
   [self.cameraBtn setTitle:@"Take Photo" forState:UIControlStateNormal];
   self.cameraBtn.titleLabel.font = btnFont;
   [self.cameraBtn addTarget:self action:@selector(takePhotoWasPressed) forControlEvents:UIControlEventTouchUpInside];
+  self.cameraBtn.hidden = !self.haveCamera;
   
   self.cancelBtn = [[UIButton alloc] initWithFrame:cancelBtnFrame];
   [self.cancelBtn setTitle:@"Cancel" forState:UIControlStateNormal];

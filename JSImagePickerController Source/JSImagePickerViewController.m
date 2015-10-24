@@ -41,6 +41,7 @@
 @property(nonatomic, strong) UIButton *cancelBtn;
 
 @property(nonatomic, strong) NSMutableArray *assets;
+@property(nonatomic, strong) NSMutableArray *selectedPhotos;
 
 @end
 
@@ -48,6 +49,7 @@
 
 @synthesize delegate;
 @synthesize transitionController;
+@synthesize selectedPhotos;
 
 - (id)init
 {
@@ -88,6 +90,8 @@
 
     [self.imagePickerView addSubview:btn];
 
+    selectedPhotos = [NSMutableArray new];
+    
     [self imagePickerViewSetup];
     [self getCameraRollImages];
 }
@@ -175,27 +179,44 @@
     imageView.clipsToBounds = YES;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     [cell addSubview:imageView];
-
+    
+    UIImageView *sel = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PreviewSupplementaryView-Checkmark.png"]];
+    [sel setFrame:CGRectMake(95, 5, 25, 25)];
+    //[sel setBackgroundColor:[UIColor blackColor]];
+    
+    if ([selectedPhotos containsObject:asset]) {
+        [sel setImage:[UIImage imageNamed:@"PreviewSupplementaryView-Checkmark-Selected.png"]];
+    }
+    
+    [cell addSubview:sel];
+    
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
-
     ALAsset *asset = self.assets[self.assets.count - 1 - indexPath.row];
-    UIImage *image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
-
-    if ([delegate respondsToSelector:@selector(imagePicker:didSelectImage:)]) {
-        [delegate imagePicker:self didSelectImage:image];
+    if([selectedPhotos containsObject:asset]) {
+        [selectedPhotos removeObject:asset];
+    } else {
+        [selectedPhotos addObject:asset];
     }
+    [collectionView reloadData];
+    [self updateButtons];
+}
 
-    [self dismissAnimated:YES];
+-(void)updateButtons {
+    if (selectedPhotos.count > 0) {
+        [self.photoLibraryBtn setTitle:[NSString stringWithFormat:@"Send %lu photos", (unsigned long)selectedPhotos.count] forState:UIControlStateNormal];
+    } else {
+        [self.photoLibraryBtn setTitle:@"Image library" forState:UIControlStateNormal];
+    }
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(170, 114);
+    return CGSizeMake(125, 114);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
@@ -270,6 +291,19 @@
 
 - (void)selectFromLibraryWasPressed
 {
+    if (selectedPhotos.count > 0) {
+        NSMutableArray *images = [NSMutableArray new];
+        for (ALAsset *asset in selectedPhotos) {
+            UIImage *image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
+            [images addObject:image];
+        }
+        if ([delegate respondsToSelector:@selector(imagePicker:didSelectImages:)]) {
+            [delegate imagePicker:self didSelectImages:images];
+        }
+        
+        [self dismissAnimated:YES];
+        return;
+    }
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
@@ -283,8 +317,8 @@
     UIImage *chosenImage = info[UIImagePickerControllerOriginalImage];
 
     [picker dismissViewControllerAnimated:YES completion:^{
-        if ([delegate respondsToSelector:@selector(imagePicker:didSelectImage:)]) {
-            [delegate imagePicker:self didSelectImage:chosenImage];
+        if ([delegate respondsToSelector:@selector(imagePicker:didSelectImages:)]) {
+            [delegate imagePicker:self didSelectImages:@[chosenImage]];
         }
         [self dismissAnimated:YES];
     }];

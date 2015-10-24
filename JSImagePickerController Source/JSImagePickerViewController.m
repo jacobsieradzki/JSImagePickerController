@@ -204,23 +204,13 @@
     }
     [collectionView reloadData];
     [self updateButtons];
-    
-    
-    /*ALAsset *asset = self.assets[self.assets.count - 1 - indexPath.row];
-    UIImage *image = [UIImage imageWithCGImage:[[asset defaultRepresentation] fullResolutionImage]];
-
-    if ([delegate respondsToSelector:@selector(imagePicker:didSelectImage:)]) {
-        [delegate imagePicker:self didSelectImage:image];
-    }
-
-    [self dismissAnimated:YES];*/
 }
 
 -(void)updateButtons {
     if (selectedPhotos.count > 0) {
-        [self.photoLibraryBtn setTitle:[NSString stringWithFormat:@"Отправить %lu фото", (unsigned long)selectedPhotos.count] forState:UIControlStateNormal];
+        [self.photoLibraryBtn setTitle:[NSString stringWithFormat:@"Send %lu photos", (unsigned long)selectedPhotos.count] forState:UIControlStateNormal];
     } else {
-        [self.photoLibraryBtn setTitle:@"Медиатека" forState:UIControlStateNormal];
+        [self.photoLibraryBtn setTitle:@"Image library" forState:UIControlStateNormal];
     }
 }
 

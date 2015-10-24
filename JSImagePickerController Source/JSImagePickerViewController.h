@@ -11,7 +11,7 @@
 @class JSImagePickerViewController;
 @protocol JSImagePickerViewControllerDelegate <NSObject>
 
-- (void)imagePicker:(JSImagePickerViewController *)imagePicker didSelectImage:(UIImage *)image;
+- (void)imagePicker:(JSImagePickerViewController *)imagePicker didSelectImages:(NSArray *)images;
 
 @optional
 
